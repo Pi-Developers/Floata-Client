@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape"
+    android:orientation="vertical" >
+
+        <RelativeLayout
+             android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/about"
+                android:layout_width="340dp"
+                android:layout_height="70dp"
+                android:layout_below="@+id/setting"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/roundbutton"
+                android:text="About"
+                                android:textSize="20sp"
+                
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/help"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="340dp"
+                android:layout_height="70dp"
+                android:layout_alignLeft="@+id/setting"
+                android:layout_below="@+id/about"
+                android:layout_marginTop="21dp"
+                android:background="@drawable/roundbutton"
+                android:text="Help"
+                                android:textSize="20sp"
+                
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/twitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/start"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="25dp"
+                android:src="@drawable/login" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="26dp"
+                android:text="Floata"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:textSize="120sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/setting"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="340dp"
+                android:layout_height="70dp"
+                android:layout_alignLeft="@+id/textView1"
+                android:layout_below="@+id/start"
+                android:layout_marginTop="85dp"
+                android:background="@drawable/roundbutton"
+                android:text="Floata Settings"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/start"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView1"
+                android:layout_marginRight="44dp"
+                android:layout_marginTop="87dp"
+                android:background="@drawable/roundbutton"
+                android:text="on / off"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+</LinearLayout>

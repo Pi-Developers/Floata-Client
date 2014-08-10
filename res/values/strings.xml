@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Floata</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_floating">Floating</string>
+    <string name="TWITTER_CALLBACK_URL">floata://connect</string>
+    <string name="TWITTER_CONSUMER_KEY">UUyRw5Xq9zVUtToGQopqaDtqP</string>
+    <string name="TWITTER_CONSUMER_SECRET">1uZcuyB5OBKFsWi1Nb8PZsxQ0VlllxT4EJvCscE7ejjs47GjGh</string>
+    <string name="title_activity_logintwitter">Login Twitter</string>
+    <string name="about_text">About floata</string>
+    <string name="pi_text">Pi Developers®</string>
+    <string name="help">How to use floata ?\n
+         \n-click on login.
+         \n-after login with your account click on/off.
+         \n-Double click on the floating icon.
+         \n-Voila ! now tweet.
+         \n\n\n
+         
+         How to logout?\n
+         \n-Click on Logout icon
+         \n-that is it !
+         
+         \n\n\n
+         
+         encountered a bug ? report on playstore or XDA.
+         
+         \n\n\n
+         
+         Please rate us 5 stars on playstore.</string>
+    <string name="floata">Floata
+\n\nThe first floating TWEET client.
+\ninspired by AOSPA 3+ "Halo" &amp; Facebook ChatHeads. 
+\n\nAre you a User of Paranoid Android Roms ?
+Are you a Fan of Facebook ChatHeads ?
+Are you a heavy socials user who want to use twitter while playing games/checking whatsapp...etc ?
+\n\nIf the answer is yes,you are in the right place, welcome to floata client.
+\n\n
+__________
+\n\n
+Features :
+\n
+-Compatible with the old gingerbread and the brand new kitkat.
+\n
+-aceess twitter without leaving your current app
+\n
+\n
+-Moderate Ram Consumption
+\n
+-Low size 
+\n
+-eye friendly design
+\n
+-simple and user-friendly
+\n\n
+__________
+
+\n\n
+Brought to you by Pi Developers®.</string>
+    <string name="title_activity_setting">Setting</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_close">Close</string>
+
+</resources>

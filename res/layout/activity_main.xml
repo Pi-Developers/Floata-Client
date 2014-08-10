@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <RelativeLayout
+             android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Floata"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:textSize="80sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/setting"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="290dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/start"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="38dp"
+                android:background="@drawable/roundbutton"
+                android:text="Floata Settings"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <Button
+                                android:textSize="25sp"
+                
+                android:id="@+id/start"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView1"
+                android:layout_marginRight="21dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/roundbutton"
+                android:text="on / off"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <Button
+                                android:textSize="25sp"
+                
+                android:id="@+id/about"
+                android:layout_width="290dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/setting"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/roundbutton"
+                android:text="About"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <Button
+                                android:textSize="25sp"
+                
+                android:id="@+id/help"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="290dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/setting"
+                android:layout_below="@+id/about"
+                android:layout_marginTop="21dp"
+                android:background="@drawable/roundbutton"
+                android:text="Help"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/twitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/setting"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/login" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

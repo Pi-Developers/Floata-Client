@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+        android:background="@drawable/shape"
+    
+>
+
+    
+    
+    
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Settings"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:textSize="60sp"
+                android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true" >
+
+        <RadioButton
+            android:id="@+id/r3"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Idea Bubble" />
+
+        <RadioButton
+            android:id="@+id/r2"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/r4"
+            android:layout_toLeftOf="@+id/textView2"
+            android:onClick="onRadioButtonClicked"
+            android:text="Twitter Bird" />
+
+        <RadioButton
+            android:id="@+id/r1"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Pen Bubble" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radioGroup1"
+        android:text="___________________________"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#0A81A5" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/radioGroup1"
+        android:background="#FFFFFF"
+        android:text="  Set transperancy"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0A81A5"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:text="_____________________________"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#0A81A5" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="3342sp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:text="  Set Floata Icon"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0A81A5"
+        android:textStyle="bold" />
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+       
+        android:layout_margin="29dp"
+        android:layout_weight="1"
+        android:max="255" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        
+        android:src="@drawable/ideabubble" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/twitter" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/textView4"
+        android:layout_alignLeft="@+id/imageView2"
+        android:src="@drawable/ic_launcher" />
+
+</RelativeLayout>

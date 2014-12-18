@@ -1,98 +1,193 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/shape"
-    android:orientation="vertical" >
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:background="#EEEEEE" >
 
         <RelativeLayout
-             android:layout_weight="1"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EEEEEE" >
 
-            <TextView
-                android:id="@+id/textView1"
+            <LinearLayout
+                android:id="@+id/linearLayout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="Floata"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#FFFFFF"
-                android:textSize="80sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/setting"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="290dp"
-                android:layout_height="50dp"
-                android:layout_below="@+id/start"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="38dp"
-                android:background="@drawable/roundbutton"
-                android:text="Floata Settings"
-                android:textColor="#FFFFFF"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <Button
-                                android:textSize="25sp"
-                
-                android:id="@+id/start"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/textView1"
-                android:layout_marginRight="21dp"
-                android:layout_marginTop="35dp"
-                android:background="@drawable/roundbutton"
-                android:text="on / off"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-
-            <Button
-                                android:textSize="25sp"
-                
-                android:id="@+id/about"
-                android:layout_width="290dp"
-                android:layout_height="50dp"
-                android:layout_below="@+id/setting"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/roundbutton"
-                android:text="About"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-
-            <Button
-                                android:textSize="25sp"
-                
-                android:id="@+id/help"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="290dp"
-                android:layout_height="50dp"
-                android:layout_alignLeft="@+id/setting"
-                android:layout_below="@+id/about"
-                android:layout_marginTop="21dp"
-                android:background="@drawable/roundbutton"
-                android:text="Help"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/twitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/setting"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/login" />
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/card"
+                android:orientation="vertical" >
 
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg"
+                    android:gravity="center_vertical|center"
+                    
+                    
+                    
+                    android:text="  General"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#fafafa"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/button"
+                    android:text="Toggle floata" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/button"
+                    android:text="Login" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/linearLayout1"
+                android:layout_alignRight="@+id/linearLayout1"
+                android:layout_below="@+id/linearLayout1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/card"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/linearLayout1"
+                    android:background="@drawable/bg"
+                    android:gravity="center"
+                    android:text="Setting"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#fafafa"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/textView2"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="18dp"
+                    android:text="  Set transperancy"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#2196F3"
+                    android:textStyle="bold" />
+
+                <SeekBar
+                    android:id="@+id/seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="15dp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView3"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/seek"
+                    android:layout_marginTop="42dp"
+                    android:text="     Set floata style"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#2196F3"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="29dp" >
+
+                    <RadioButton
+                        android:id="@+id/radio0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Cloud" />
+
+                    <RadioButton
+                        android:id="@+id/radio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pen" />
+
+                    <RadioButton
+                        android:id="@+id/radio2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Twitter" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/radioGroup1"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/radioGroup1"
+                    android:layout_marginTop="36dp"
+                    android:text="     Set Floata Size"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#2196F3"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView5"
+                    android:layout_alignRight="@+id/radioGroup1"
+                    android:layout_below="@+id/textView5"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="22dp" >
+
+                    <RadioButton
+                        android:id="@+id/radio00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Xlarge" />
+
+                    <RadioButton
+                        android:id="@+id/radio11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Large" />
+
+                    <RadioButton
+                        android:id="@+id/radio22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Small" />
+                </RadioGroup>
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+</merge>

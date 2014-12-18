@@ -3,17 +3,14 @@
 
     <string name="app_name">Floata</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_floating">Floating</string>
+    <string name="title_activity_twitter_login">TwitterLoginActivity</string>
     <string name="TWITTER_CALLBACK_URL">floata://connect</string>
     <string name="TWITTER_CONSUMER_KEY">UUyRw5Xq9zVUtToGQopqaDtqP</string>
     <string name="TWITTER_CONSUMER_SECRET">1uZcuyB5OBKFsWi1Nb8PZsxQ0VlllxT4EJvCscE7ejjs47GjGh</string>
-    <string name="title_activity_logintwitter">Login Twitter</string>
-    <string name="about_text">About floata</string>
-    <string name="pi_text">Pi Developers®</string>
     <string name="help">How to use floata ?\n
          \n-click on login.
          \n-after login with your account click on/off.
-         \n-Double click on the floating icon.
+         \n-Click on the floating icon.
          \n-Voila ! now tweet.
          \n\n\n
          
@@ -27,8 +24,8 @@
          
          \n\n\n
          
-         Please rate us 5 stars on playstore.</string>
-    <string name="floata">Floata
+         Please rate us 5 stars on playstore.</string>
+    <string name="about">        Floata
 \n\nThe first floating TWEET client.
 \ninspired by AOSPA 3+ "Halo" &amp; Facebook ChatHeads. 
 \n\nAre you a User of Paranoid Android Roms ?
@@ -56,9 +53,10 @@ Features :
 __________
 
 \n\n
-Brought to you by Pi Developers®.</string>
-    <string name="title_activity_setting">Setting</string>
+Brought to you by Pi Developers®.</string>
+    <string name="title_activity_chathead">Chathead</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_chatheadx">Chatheadx</string>
     <string name="title_activity_close">Close</string>
 
 </resources>

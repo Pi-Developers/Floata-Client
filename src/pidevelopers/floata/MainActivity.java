@@ -9,181 +9,151 @@ import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.ActivityInfo;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
-
-	static Twitter twitter;
-
-	Button start, about, setting, help;
-    ConnectionDetector cd;
-	ImageView twitterbutton;
-	String access_token, floata, access_token_secret;
+public class MainActivity extends ActionBarActivity {
 
 	protected static final String AUTHENTICATION_URL_KEY = "AUTHENTICATION_URL_KEY";
-
 	protected static final int LOGIN_TO_TWITTER_REQUEST = 0;
-
-	static SharedPreferences spf;
-
 	static final String PREFERENCE_NAME = "twitter_oauth";
-
 	static final String ACCESS_TOKEN = "oauth_token";
-
 	static final String ACCESS_SECRET = "oauth_token_secret";
-
+	static Twitter twitter;
+	static ProgressDialog progressDialog;
+	static String access_token; 
+	static String access_token_secret;
+	static String shape, size, floataon, seek;
+	Button login, start;
+	SeekBar transperancy;
+	RadioButton pen, cloud, twittericon, xlarge, large, small;
+	SharedPreferences spf;
+	Editor edit;
+	String zz, on;
 	AccessToken accessToken;
-
+    Boolean isInternetPresent = false;
+    ConnectionDetector cd;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		android.support.v7.app.ActionBar bar = getSupportActionBar();// or MainActivity.getInstance().getActionBar()
+		spf = PreferenceManager.getDefaultSharedPreferences(this);
+		login = (Button) findViewById(R.id.button2);
+		start = (Button) findViewById(R.id.button1);
+		transperancy = (SeekBar) findViewById(R.id.seek);
+		pen = (RadioButton) findViewById(R.id.radio1);
+		twittericon = (RadioButton) findViewById(R.id.radio2);
+		cloud = (RadioButton) findViewById(R.id.radio0);
+		xlarge = (RadioButton) findViewById(R.id.radio00);
+		large = (RadioButton) findViewById(R.id.radio11);
+		small = (RadioButton) findViewById(R.id.radio22);
+		cd = new ConnectionDetector(getApplicationContext());
+        isInternetPresent = cd.isConnectingToInternet();
+        
+        bar.setBackgroundDrawable(new ColorDrawable(0xff2196F3));
+		bar.setDisplayShowTitleEnabled(false);  
+		bar.setDisplayShowTitleEnabled(true);
+		bar.setTitle(Html.fromHtml("<b>Floata</b>"));
 		
-		startService(new Intent (this, ServiceL.class));
+        if (!isInternetPresent) {
+
+			new AlertDialog.Builder(MainActivity.this)
+			.setTitle("Sorry !")
+			.setMessage("you don't have internet connection, Floata won't be fully fuctional, please turn on Wi-Fi or Data to use Floata properly")
+			.setPositiveButton("Turn on wifi",new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) {startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));} })
+			.setNegativeButton("I understand", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { } }).show();
+
+        }
+
+		loadon();
+		loadseek();
+		if (!(seek.equals(null))) {
+			
+			if (!(seek.equals(""))) {
+				
+			transperancy.setProgress(Integer.parseInt(seek)*100/255);
+			
+			}
+			
+			else {
+				
+				transperancy.setProgress(Integer.parseInt("255"));
+			}
+		}
 		
-		  cd = new ConnectionDetector(getApplicationContext());
-		  
-
-	        if (!cd.isConnectingToInternet()) {
-
-
-	        	
-	        	  cd = new ConnectionDetector(getApplicationContext());
-	        	  
-	              if (!cd.isConnectingToInternet()) {
-	            	  
-	            	  new AlertDialog.Builder(this)
-	            	    .setTitle("Opps!")
-	            	    .setMessage("You are not connected to internet, check your connection and retry")
-	            	    .setPositiveButton("Exit Floata", new DialogInterface.OnClickListener() {
-	            	        public void onClick(DialogInterface dialog, int which) { 
-                         finish();
-                             }
-	            	     })
-
-	            	    .setIcon(android.R.drawable.ic_dialog_alert)
-	            	     .show();
-
-	            	  return;
-	              }
-	        	
-	        	
-	        	
-	            return;
-	        }
+		loadshapeandsize();
+		loadtoken();
 		
-		start = (Button) findViewById(R.id.start);
-		twitterbutton = (ImageView) findViewById(R.id.twitter);
-		about = (Button) findViewById(R.id.about);
-		setting = (Button) findViewById(R.id.setting);
-		help = (Button) findViewById(R.id.help);
-
-		setting.setOnClickListener(new OnClickListener() {
+		transperancy.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 			@Override
-			public void onClick(View arg0) {
+			public void onStopTrackingTouch(SeekBar arg0) {
 
-				startActivity(new Intent(MainActivity.this, Setting.class));
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar arg0) {
+
+			}
+
+			@Override
+			public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
+
+				int transperancyseek = (arg1 * 225 / 100);
+
+				save("seek", String.valueOf(transperancyseek));
+				
+				
+		if (floataon.equals("true")) { loadChatHead(); }
 
 			}
 		});
 
-		help.setOnClickListener(new OnClickListener() {
-
-			@SuppressWarnings("deprecation")
-			@Override
-			public void onClick(View arg0) {
-
-				AlertDialog alertDialog = new AlertDialog.Builder(
-						MainActivity.this).create();
-
-				alertDialog.setTitle("Floata Help");
-
-				alertDialog.setMessage(getString(R.string.help));
-
-				alertDialog.setIcon(R.drawable.ic_launcher);
-
-				alertDialog.setButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-
-							}
-						});
-
-				alertDialog.show();
-
-			}
-		});
-
-		about.setOnClickListener(new OnClickListener() {
-
-			@SuppressWarnings("deprecation")
-			@Override
-			public void onClick(View arg0) {
-
-				AlertDialog alertDialog = new AlertDialog.Builder(
-						MainActivity.this).create();
-
-				alertDialog.setTitle("About floata");
-
-				alertDialog.setMessage(getString(R.string.floata));
-
-				alertDialog.setIcon(R.drawable.ic_launcher);
-
-				alertDialog.setButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-
-							}
-						});
-
-				alertDialog.show();
-
-			}
-		});
-
-
-		twitterbutton.setOnClickListener(new OnClickListener() {
+		login.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 
 				loadtoken();
-
-				if (access_token.equals("")) {
-					int x = 10000;
-					twitterbutton.setImageResource(R.drawable.login);
+				if ((access_token.equals("")) || (access_token.equals(null))) {
+					login.setText("Login");
 					loginToTwitter();
-					Toast toast = Toast.makeText(MainActivity.this,
-							"Loading Twitter", x);
-					toast.setGravity(Gravity.CENTER, 0, 0);
-					toast.show();
+
+					progressDialog = new ProgressDialog(MainActivity.this);
+					progressDialog.setMessage("Loading ...");
+
+					progressDialog.setCancelable(false);
+					progressDialog.show();
 
 				} else {
 
 					logoutToTwitter();
-
-					twitterbutton.setImageResource(R.drawable.logout);
 
 				}
 
@@ -191,75 +161,387 @@ public class MainActivity extends Activity {
 		});
 
 		start.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
 
-				loadtoken();
-				loadfloata();
+			@Override
+			public void onClick(View arg0) {
 
-				if (floata.equals("")) {
+				if (floataon.equals("false")) {
+					loadshapeandsize();
+					loadseek();
+					save("on", "true");
 
-					if(access_token.equals("")){
-					
-					
+					startService(new Intent(MainActivity.this, ChatHead.class));
+					loadon();
 
-						
-						new AlertDialog.Builder(MainActivity.this)
-	            	    .setTitle("Opps!")
-	            	    .setMessage("You are not connected to Twitter, login and retry")
-	            	    .setPositiveButton("Exit Floata", new DialogInterface.OnClickListener() {
-	            	        public void onClick(DialogInterface dialog, int which) { 
-                         finish();
-                             }
-	            	     })
-
-	            	    .setIcon(android.R.drawable.ic_dialog_alert)
-	            	     .show();
-
-	            	  return;
-	            	 
-						
-					}else
-					save("floata", "on");
-					startService(new Intent(MainActivity.this, Chathead.class));
-				
 				} else {
+					save("on", "false");
 
-					save("floata", "");
-					stopService(new Intent(MainActivity.this, Chathead.class));
+					stopService(new Intent(MainActivity.this, ChatHead.class));
+					loadon();
+					
+
 
 				}
 
 			}
 		});
 
-		loadtoken();
+		pen.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+				if (arg1 == true) {
+
+					save("shape", "pen");
+					if (floataon.equals("true")) {
+						loadChatHead();
+					}
+
+				} else {
+
+				}
+
+			}
+		});
+
+		cloud.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+				if (arg1 == true) {
+					save("shape", "cloud");
+					if (floataon.equals("true")) {
+						loadChatHead();
+					}
+
+				} else {
+
+				}
+
+			}
+		});
+
+		twittericon.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+				if (arg1 == true) {
+					save("shape", "twittericon");
+					if (floataon.equals("true")) {
+						loadChatHead();
+					}
+
+				} else {
+
+				}
+
+			}
+		});
+
+		xlarge.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+				if (arg1 == true) {
+					save("size", "xlarge");
+					if (floataon.equals("true")) {
+						loadChatHead();
+					}
+
+				} else {
+
+				}
+
+			}
+		});
+
+		large.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+				if (arg1 == true) {
+					save("size", "large");
+					if (floataon.equals("true")) {
+						loadChatHead();
+					}
+
+				} else {
+
+				}
+
+			}
+		});
+
+		small.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+				if (arg1 == true) {
+					save("size", "small");
+					if (floataon.equals("true")) {
+						loadChatHead();
+					}
+
+				} else {
+
+				}
+
+			}
+		});
 
 	}
 
-	private class GetRequestTokenTask extends AsyncTask<Void, Void, Void> {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-		@Override
-		protected Void doInBackground(Void... voids) {
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
 
-			ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-			configurationBuilder
-					.setOAuthConsumerKey(getString(R.string.TWITTER_CONSUMER_KEY));
-			configurationBuilder
-					.setOAuthConsumerSecret(getString(R.string.TWITTER_CONSUMER_SECRET));
-			Configuration configuration = configurationBuilder.build();
-			twitter = new TwitterFactory(configuration).getInstance();
+		if (item.getItemId() == R.id.help) {
 
+			new AlertDialog.Builder(MainActivity.this)
+					.setTitle("Help")
+					.setMessage(getString(R.string.help))
+					.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+								}
+							}).setIcon(R.drawable.help).show();
+
+		}
+
+		if (item.getItemId() == R.id.about) {
+			new AlertDialog.Builder(MainActivity.this)
+					.setTitle("About")
+					.setMessage(getString(R.string.about))
+					.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+								}
+							}).setIcon(R.drawable.about).show();
+
+		}
+
+		return super.onOptionsItemSelected(item);
+
+	}
+
+	public void save(String key, String value) {
+		edit = spf.edit();
+		edit.putString(key, value);
+		edit.commit();
+
+	}
+
+	public void loadon() {
+
+	
+
+		if(ChatHead.twitter == null){
+			floataon = spf.getString("on", "false");
+			
+		}else{
+			
+			floataon = spf.getString("on", "");
+		}
+
+	}
+
+	public void loadshapeandsize() {
+
+		shape = spf.getString("shape", "");
+		size = spf.getString("size", "");
+
+		if (size.equals("xlarge")) {
+
+			xlarge.setChecked(true);
+
+		} else if (size.equals("large")) {
+			large.setChecked(true);
+		} else if (size.equals("small")) {
+			small.setChecked(true);
+		} else if (size.equals("")) {
+			large.setChecked(true);
+			size = "large";
+
+		} else if (size.equals(null)) {
+			large.setChecked(true);
+			size = "large";
+		}
+
+		if (shape.equals("pen")) {
+			pen.setChecked(true);
+
+		} else if (shape.equals("cloud")) {
+			cloud.setChecked(true);
+
+		} else if (shape.equals("twittericon")) {
+			twittericon.setChecked(true);
+
+		} else if (shape.equals("")) {
+			pen.setChecked(true);
+
+		} else if (shape.equals(null)) {
+			pen.setChecked(true);
+
+		}
+
+	}
+
+	public void loadseek() {
+
+		seek = spf.getString("seek", "");
+		
+		
+
+	}
+
+	@SuppressWarnings("deprecation")
+	public void loadChatHead() {
+
+		loadshapeandsize();
+		loadseek();
+
+		if (floataon.equals("true")) {
 			try {
 
-				RequestToken requestToken = twitter
-						.getOAuthRequestToken(getString(R.string.TWITTER_CALLBACK_URL));
-				launchLoginWebView(requestToken);
-			} catch (TwitterException e) {
-				e.printStackTrace();
-
+				if (!(seek.equals(null)))
+				{
+					if (!(seek.equals("")))
+					{
+					
+					ChatHead.twitter.setAlpha(Integer.parseInt(seek));
+					}
+				}
+			} catch (NumberFormatException e) {
+				// TODO: handle exception
 			}
-			return null;
+
 		}
+
+		if (shape.equals("pen")) {
+			if (size.equals("xlarge")) {
+				ChatHead.twitter.setImageResource(R.drawable.penxlarge);
+			} else if (size.equals("large")) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			} else if (size.equals("small")) {
+				ChatHead.twitter.setImageResource(R.drawable.pensmall);
+			} else if (size.equals("")) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			} else if (size.equals(null)) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			}
+		}
+
+		else if (shape.equals("cloud")) {
+			if (size.equals("xlarge")) {
+				ChatHead.twitter.setImageResource(R.drawable.cloudxlarge);
+			} else if (size.equals("large")) {
+				ChatHead.twitter.setImageResource(R.drawable.cloudlarge);
+			} else if (size.equals("small")) {
+				ChatHead.twitter.setImageResource(R.drawable.cloudsmall);
+			} else if (size.equals("")) {
+				ChatHead.twitter.setImageResource(R.drawable.cloudlarge);
+			} else if (size.equals(null)) {
+				ChatHead.twitter.setImageResource(R.drawable.cloudlarge);
+			}
+		}
+
+		else if (shape.equals("twittericon")) {
+			if (size.equals("xlarge")) {
+				ChatHead.twitter.setImageResource(R.drawable.twitterxlarge);
+			} else if (size.equals("large")) {
+				ChatHead.twitter.setImageResource(R.drawable.twitterlarge);
+			} else if (size.equals("small")) {
+				ChatHead.twitter.setImageResource(R.drawable.twittersmal);
+			} else if (size.equals("")) {
+				ChatHead.twitter.setImageResource(R.drawable.twitterlarge);
+			} else if (size.equals(null)) {
+				ChatHead.twitter.setImageResource(R.drawable.twitterlarge);
+			}
+		}
+
+		else if (shape.equals("")) {
+			if (size.equals("xlarge")) {
+				ChatHead.twitter.setImageResource(R.drawable.penxlarge);
+			} else if (size.equals("large")) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			} else if (size.equals("small")) {
+				ChatHead.twitter.setImageResource(R.drawable.pensmall);
+			} else if (size.equals("")) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			} else if (size.equals(null)) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			}
+
+		} else if (shape.equals(null)) {
+			if (size.equals("xlarge")) {
+				ChatHead.twitter.setImageResource(R.drawable.penxlarge);
+			} else if (size.equals("large")) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			} else if (size.equals("small")) {
+				ChatHead.twitter.setImageResource(R.drawable.pensmall);
+			} else if (size.equals("")) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			} else if (size.equals(null)) {
+				ChatHead.twitter.setImageResource(R.drawable.penlarge);
+			}
+		}
+	}
+
+	private void logoutToTwitter() {
+		
+		
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Logout")
+		.setMessage("Are you sure you want to logout ?")
+		.setPositiveButton("Yes",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+						save("token", "");
+						save("secret", "");
+
+						loadtoken();
+
+						Toast.makeText(MainActivity.this, "Disconnected from Twitter",
+								Toast.LENGTH_SHORT).show();
+
+						login.setText("Login to twitter");
+
+					}
+				})
+		
+		.setNegativeButton("No",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+					
+
+						
+					}
+				});
+		AlertDialog alertDialog = alert.create();
+		alertDialog.show();
+
+		
 	}
 
 	private void loginToTwitter() {
@@ -270,44 +552,8 @@ public class MainActivity extends Activity {
 		return;
 	}
 
-	private void logoutToTwitter() {
-
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		builder.setMessage("Delete current Twitter connection?")
-				.setCancelable(false)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-
-								save("ACCESS_TOKEN", null);
-								save("ACCESS_SECRET", null);
-
-								Toast.makeText(MainActivity.this,
-										"Disconnected from Twitter",
-										Toast.LENGTH_SHORT).show();
-
-								loadtoken();
-
-							}
-						})
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
-
-					}
-
-				});
-
-		final AlertDialog alert = builder.create();
-
-		alert.show();
-
-	}
-
 	private void launchLoginWebView(RequestToken requestToken) {
-		// intent to launch activity + sending request
-		Intent intent = new Intent(this, Logintwitter.class);
+		Intent intent = new Intent(this, TwitterLoginActivity.class);
 		intent.putExtra(MainActivity.AUTHENTICATION_URL_KEY,
 				requestToken.getAuthenticationURL());
 		startActivityForResult(intent, LOGIN_TO_TWITTER_REQUEST);
@@ -319,7 +565,7 @@ public class MainActivity extends Activity {
 		if (requestCode == LOGIN_TO_TWITTER_REQUEST) {
 			if (resultCode == Activity.RESULT_OK) {
 				getAccessToken(data
-						.getStringExtra(Logintwitter.CALLBACK_URL_KEY));
+						.getStringExtra(TwitterLoginActivity.CALLBACK_URL_KEY));
 			}
 		}
 	}
@@ -353,85 +599,63 @@ public class MainActivity extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 
-			save("ACCESS_TOKEN", accessToken.getToken());
-			save("ACCESS_SECRET", accessToken.getTokenSecret());
+			save("token", accessToken.getToken());
+			save("secret", accessToken.getTokenSecret());
+			loadtoken();
 
 			Toast.makeText(getApplicationContext(), "Connected to Twitter",
 					Toast.LENGTH_SHORT).show();
-			twitterbutton.setImageResource(R.drawable.logout);
-
+			login.setText("Logout from twitter");
 			super.onPostExecute(result);
 		}
-
 	}
 
 	public void loadtoken() {
 
-		MainActivity.spf = PreferenceManager.getDefaultSharedPreferences(this);
-		access_token = MainActivity.spf.getString("ACCESS_TOKEN", "");
-		access_token_secret = MainActivity.spf.getString("ACCESS_SECRET", "");
+		access_token = spf.getString("token", "");
+		access_token_secret = spf.getString("secret", "");
 
-		loadfloata();
-		if (floata.equals("true")) {
-			Chathead.access_token = access_token;
-			Chathead.access_token_secret = access_token_secret;
+		loadon();
+		if (floataon.equals("true")) {
+			ChatHead.access_token = access_token;
+			ChatHead.access_token_secret = access_token_secret;
 
 		}
 
 		if (access_token.equals("")) {
-
-			twitterbutton.setImageResource(R.drawable.login);
-
+			login.setText("Login to twitter");
 		} else {
+			
+			login.setText("Logout from twitter");
 
-			twitterbutton.setImageResource(R.drawable.logout);
 
 		}
 
 	}
 
-	public void save(String key, String value) {
-		spf = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor edit = spf.edit();
-		edit.putString(key, value);
-		edit.commit();
+	private class GetRequestTokenTask extends AsyncTask<Void, Void, Void> {
 
-	}
+		@Override
+		protected Void doInBackground(Void... voids) {
 
-	public void loadfloata() {
+			ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+			configurationBuilder
+					.setOAuthConsumerKey(getString(R.string.TWITTER_CONSUMER_KEY));
+			configurationBuilder
+					.setOAuthConsumerSecret(getString(R.string.TWITTER_CONSUMER_SECRET));
+			Configuration configuration = configurationBuilder.build();
+			twitter = new TwitterFactory(configuration).getInstance();
 
-		MainActivity.spf = PreferenceManager.getDefaultSharedPreferences(this);
+			try {
+				RequestToken requestToken = twitter
+						.getOAuthRequestToken(getString(R.string.TWITTER_CALLBACK_URL));
+				launchLoginWebView(requestToken);
+			} catch (TwitterException e) {
+				e.printStackTrace();
 
-		floata = MainActivity.spf.getString("floata", "");
-	}
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		loadfloata();
-
-		if (floata.equals("on")) {
-
-		} else {
-			save("floata", "");
-			loadfloata();
+			}
+			return null;
 		}
-		finish();
-
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		loadfloata();
-
-		if (floata.equals("on")) {
-
-		} else {
-			save("floata", "");
-			loadfloata();
-		}
-
 	}
 
 }

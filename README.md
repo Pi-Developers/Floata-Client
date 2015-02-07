@@ -1,8 +1,9 @@
 Floata-Client
 =============
 
-A floating Twitter Client for android devices.
-Inspired by AOSPA 3+ "Halo" & Facebook ChatHeads.
+               A floating Twitter Client for android devices.Inspired by AOSPA 3+ "Halo" & Facebook ChatHeads.
+               
+ ![alt tag](http://url/to/img.png)
 
 
 
@@ -15,7 +16,6 @@ Introduction :
    
    
 Features :
-
 
     -Compatible with the old Froyo and the brand new kitkat.
     -access twitter

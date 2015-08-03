@@ -6,6 +6,7 @@ Floata-Client
  ![alt tag](https://pbs.twimg.com/media/BvHQbcKIQAAbMe3.png:large)
 
 
+**Current version : 6.2 **
 
 **Introduction :**
 

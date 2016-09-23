@@ -1,5 +1,6 @@
 Floata-Client
 =============
+**We are working on V7.0 with Material Design and Cool Stuff**
 
 **A floating Twitter Client for android devices.Inspired by AOSPA 3+ "Halo" & Facebook ChatHeads.**
                
